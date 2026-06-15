@@ -17,7 +17,7 @@ This repository contains the assignments and homework code for the **High Perfor
 ---
 
 ## 1. CUDA Assignment (Heat Equation)
-**Folder:** `Cuda Assignment/`
+**Folder:** `cuda_assignment/`
 
 ### Description
 This assignment implements a parallelized solution to the 2D Heat Equation using Finite Difference Methods. It compares the execution time of a sequential CPU implementation against a parallelized GPU implementation using CUDA.
@@ -29,15 +29,15 @@ This assignment implements a parallelized solution to the 2D Heat Equation using
 
 ### Compilation and Execution
 ```bash
-cd "Cuda Assignment"
-nvcc Cuda_Homework.cu -o cuda_homework
+cd cuda_assignment
+nvcc cuda_homework.cu -o cuda_homework
 ./cuda_homework 1000 1000  # Dimensions of the 2D array
 ```
 
 ---
 
 ## 2. OpenMP Assignment (Discrete Fourier Transform)
-**Folder:** `OMP Assignment/`
+**Folder:** `openmp_assignment/`
 
 ### Description
 This project implements the Discrete Fourier Transform (DFT) and Inverse Discrete Fourier Transform (IDFT). It parallelizes the intensive nested loops using OpenMP to significantly decrease execution time.
@@ -48,7 +48,7 @@ This project implements the Discrete Fourier Transform (DFT) and Inverse Discret
 
 ### Compilation and Execution
 ```bash
-cd "OMP Assignment"
+cd openmp_assignment
 gcc -fopenmp dftw.c -o dftw -lm
 ./dftw
 ```
@@ -56,25 +56,25 @@ gcc -fopenmp dftw.c -o dftw -lm
 ---
 
 ## 3. MPI Assignment (Pi Calculation)
-**Folder:** `PI Assignment/`
+**Folder:** `mpi_assignment/`
 
 ### Description
 Calculates the value of $\pi$ (Pi) using numerical integration by approximating the area under the curve $f(x) = \frac{4}{1 + x^2}$ from $0$ to $1$.
 
 ### Implementation Details
-- **Sequential Version:** (`pi_homework.c`) Computes the integral sequentially. Uses `long long int` to gracefully handle an extremely high number of intervals ($100 \times 10^9$) without integer overflow.
-- **MPI Version:** (`pi_homework_edited.c`) Divides the integral range across multiple processes using Message Passing Interface (MPI). It utilizes `MPI_Reduce` to efficiently aggregate the partial sums computed by each node into the final $\pi$ value.
+- **Sequential Version:** (`pi_sequential.c`) Computes the integral sequentially. Uses `long long int` to gracefully handle an extremely high number of intervals ($100 \times 10^9$) without integer overflow.
+- **MPI Version:** (`pi_mpi.c`) Divides the integral range across multiple processes using Message Passing Interface (MPI). It utilizes `MPI_Reduce` to efficiently aggregate the partial sums computed by each node into the final $\pi$ value.
 
 ### Compilation and Execution
 ```bash
-cd "PI Assignment"
+cd mpi_assignment
 
 # Compile and run sequential version
-gcc pi_homework.c -o pi_homework -lm
-./pi_homework
+gcc pi_sequential.c -o pi_sequential -lm
+./pi_sequential
 
 # Compile and run MPI version
-mpicc pi_homework_edited.c -o pi_mpi
+mpicc pi_mpi.c -o pi_mpi
 mpirun -np 4 ./pi_mpi  # Run with 4 processes
 ```
 
