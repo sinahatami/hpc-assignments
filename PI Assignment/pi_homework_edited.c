@@ -6,17 +6,19 @@
 #define INTERVALS 100000000000
 
 int main(int argc, char **argv) {
-    int i, intervals = INTERVALS;
+    long long int i, intervals = INTERVALS;
     double x, dx, f, sum, pi;
-    double time2;
-    int num_procs, my_rank, chunk_size, start, end;
+    double time1, time2;
+    int num_procs, my_rank;
+    long long int chunk_size, start, end;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
 
     if (my_rank == 0) {
-        printf("Number of intervals: %d\n", intervals);
+        printf("Number of intervals: %lld\n", intervals);
+        time1 = MPI_Wtime();
     }
     
     // determine chunk size and start/end indices for each process
@@ -41,7 +43,7 @@ int main(int argc, char **argv) {
 
     // compute elapsed time and print results from rank 0
     if (my_rank == 0) {
-        time2 = MPI_Wtime();
+        time2 = MPI_Wtime() - time1;
         pi = dx*pi;
         printf("Computed PI %.24f\n", pi);
         printf("The true PI %.24f\n\n", PI25DT);

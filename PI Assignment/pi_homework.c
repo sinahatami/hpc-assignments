@@ -7,13 +7,13 @@
 
 int main(int argc, char **argv)
 {
-    long int i, intervals = INTERVALS;
+    long long int i, intervals = INTERVALS;
     double x, dx, f, sum, pi;
     double time2;
     
     time_t time1 = clock();
 
-    printf("Number of intervals: %ld\n", intervals);
+    printf("Number of intervals: %lld\n", intervals);
 
     sum = 0.0;
     dx = 1.0 / (double) intervals;
