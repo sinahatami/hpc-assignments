@@ -26,36 +26,34 @@ __global__ void step_kernel_mod(int ni, int nj, float fact, float* temp_in, floa
   // Allocate shared memory
   __shared__ float shared_temp[BLOCK_SIZE_X + 2][BLOCK_SIZE_Y + 2];
 
-  // Global indices
-  int gi = i + blockIdx.x * blockDim.x;
-  int gj = j + blockIdx.y * blockDim.y;
-
   // Shared memory indices
   int si = threadIdx.x + 1;
   int sj = threadIdx.y + 1;
 
   // Copy data to shared memory
-  shared_temp[si][sj] = temp_in[I2D(ni, gi, gj)];
+  if (i < ni && j < nj) {
+    shared_temp[si][sj] = temp_in[I2D(ni, i, j)];
+  }
 
   // Load boundary data
-  if (threadIdx.x == 0 && i > 0) {
-    shared_temp[si - 1][sj] = temp_in[I2D(ni, gi - 1, gj)];
+  if (threadIdx.x == 0 && i > 0 && j < nj) {
+    shared_temp[si - 1][sj] = temp_in[I2D(ni, i - 1, j)];
   }
-  if (threadIdx.x == blockDim.x - 1 && i < ni - 1) {
-    shared_temp[si + 1][sj] = temp_in[I2D(ni, gi + 1, gj)];
+  if (threadIdx.x == blockDim.x - 1 && i < ni - 1 && j < nj) {
+    shared_temp[si + 1][sj] = temp_in[I2D(ni, i + 1, j)];
   }
-  if (threadIdx.y == 0 && j > 0) {
-    shared_temp[si][sj - 1] = temp_in[I2D(ni, gi, gj - 1)];
+  if (threadIdx.y == 0 && j > 0 && i < ni) {
+    shared_temp[si][sj - 1] = temp_in[I2D(ni, i, j - 1)];
   }
-  if (threadIdx.y == blockDim.y - 1 && j < nj - 1) {
-    shared_temp[si][sj + 1] = temp_in[I2D(ni, gi, gj + 1)];
+  if (threadIdx.y == blockDim.y - 1 && j < nj - 1 && i < ni) {
+    shared_temp[si][sj + 1] = temp_in[I2D(ni, i, j + 1)];
   }
 
   __syncthreads();  // Synchronize threads to ensure data is loaded into shared memory
 
   // Conditioning to avoid out-of-bounds error
-  if ((gi > 0 && gi < ni - 1) && (gj > 0 && gj < nj - 1)) {
-    int i00 = I2D(ni, gi, gj);
+  if ((i > 0 && i < ni - 1) && (j > 0 && j < nj - 1)) {
+    int i00 = I2D(ni, i, j);
 
     // Evaluate derivatives using shared memory
     float d2tdx2 = shared_temp[si - 1][sj] - 2 * shared_temp[si][sj] + shared_temp[si + 1][sj];
