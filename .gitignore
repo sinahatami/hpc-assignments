@@ -1,0 +1,18 @@
+# Compiled outputs
+*.o
+*.out
+*.exe
+*.dll
+*.so
+
+# Assignment Executables
+cuda_assignment/cuda_homework
+mpi_assignment/pi_mpi
+mpi_assignment/pi_sequential
+openmp_assignment/dftw
+
+# macOS
+.DS_Store
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/

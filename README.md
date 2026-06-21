@@ -30,7 +30,7 @@ This assignment implements a parallelized solution to the 2D Heat Equation using
 ### Compilation and Execution
 ```bash
 cd cuda_assignment
-nvcc cuda_homework.cu -o cuda_homework
+make
 ./cuda_homework 1000 1000  # Dimensions of the 2D array
 ```
 
@@ -49,7 +49,7 @@ This project implements the Discrete Fourier Transform (DFT) and Inverse Discret
 ### Compilation and Execution
 ```bash
 cd openmp_assignment
-gcc -fopenmp dftw.c -o dftw -lm
+make
 ./dftw
 ```
 
@@ -69,12 +69,13 @@ Calculates the value of $\pi$ (Pi) using numerical integration by approximating 
 ```bash
 cd mpi_assignment
 
-# Compile and run sequential version
-gcc pi_sequential.c -o pi_sequential -lm
+# Compile both versions
+make
+
+# Run sequential version
 ./pi_sequential
 
-# Compile and run MPI version
-mpicc pi_mpi.c -o pi_mpi
+# Run MPI version
 mpirun -np 4 ./pi_mpi  # Run with 4 processes
 ```
 
@@ -85,6 +86,18 @@ To compile and run all the assignments in this repository, you will need:
 - **GCC** with OpenMP support (`-fopenmp` flag)
 - **CUDA Toolkit** (for `nvcc` and GPU execution)
 - **MPI Implementation** (e.g., OpenMPI or MPICH for `mpicc` and `mpirun`)
+- **Make** (for building the projects)
+
+## 🚀 Building All Projects
+You can build all the assignments at once using the provided Makefile at the root directory:
+```bash
+make
+```
+
+To clean all compiled executables:
+```bash
+make clean
+```
 
 ---
 *University of Genoa - High Performance Computing*
