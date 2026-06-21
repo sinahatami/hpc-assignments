@@ -12,6 +12,7 @@ This repository contains the assignments and homework code for the **High Perfor
 - [1. CUDA Assignment (Heat Equation)](#1-cuda-assignment-heat-equation)
 - [2. OpenMP Assignment (Discrete Fourier Transform)](#2-openmp-assignment-discrete-fourier-transform)
 - [3. MPI Assignment (Pi Calculation)](#3-mpi-assignment-pi-calculation)
+- [4. Final Project (Bellman-Ford)](#4-final-project-bellman-ford)
 - [Prerequisites](#prerequisites)
 
 ---
@@ -77,6 +78,31 @@ make
 
 # Run MPI version
 mpirun -np 4 ./pi_mpi  # Run with 4 processes
+```
+
+---
+
+## 4. Final Project (Bellman-Ford)
+**Folder:** `final_project/`
+
+### Description
+This is the final project for the HPC course. It implements the Bellman-Ford algorithm for finding the shortest paths from a single source vertex to all other vertices in a weighted digraph. The implementation handles negative edge weights and detects negative cycles. It includes implementations using Serial execution, OpenMP, MPI, and CUDA to analyze and compare performance across different parallelization paradigms.
+
+### Implementation Details
+- **Serial Version:** A standard sequential implementation.
+- **OpenMP Version:** Uses OpenMP to parallelize the relaxation loops across multiple CPU cores.
+- **MPI Version:** Distributed memory implementation using MPI.
+- **CUDA Version:** Massively parallel GPU implementation to map vertices and edges to threads.
+
+### Compilation and Execution
+```bash
+cd final_project
+
+# Compile all versions
+make
+
+# Run the executable, for example OpenMP with an input file:
+./openmp_bellman_ford input1.txt
 ```
 
 ---

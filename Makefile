@@ -1,6 +1,6 @@
 # Root Makefile for all HPC assignments
 
-SUBDIRS = cuda_assignment openmp_assignment mpi_assignment
+SUBDIRS = cuda_assignment openmp_assignment mpi_assignment final_project
 
 .PHONY: all clean $(SUBDIRS)
 
